@@ -52,6 +52,8 @@ try {
  
  **Essayez avec cette URL : http://monpetitmvc/?c=GestionClient&a=chercheTous
     Car les méthodes n'existe pas
+ 
+ ** Permet de rendre nul une variable. Et la méthode pour récupérer l'adresse d'un client. 
 
 
  */

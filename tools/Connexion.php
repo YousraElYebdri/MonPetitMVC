@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Tools;
+
+use PDO;
+use PDOException;
+use App\Exceptions\AppException;
+
+// Constructeur privée car singleton
+// A un singleton
+// Singleton
+// Les éléments sont facultatif
+
+class Connexion {
+
+    private static ?PDO $connexion = null;
+    private static ?Connexion $connexionInstance = null;
+
+    private function __construct() {
+        try {
+            $connect_str = CNSTRING;
+            $connect_user = DATABASE_USER;
+            $connect_pass = DATABASE_PWD;
+            $options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+            $options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8";
+            self::$connexion = new PDO($connect_str, $connect_user, $connect_pass, $options);
+        } catch (PDOException $ex) {
+            throw new AppException('Erreur à la connexion <br>' . $ex->getMessage());
+        }
+    }
+
+    public static function getConnexion(): PDO {
+        if (is_null(self::$connexionInstance)) {
+            self::$connexionInstance = new Connexion();
+        }
+        return self::$connexion;
+    }
+
+    //put your code here
+}

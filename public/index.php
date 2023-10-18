@@ -28,10 +28,13 @@ try {
     }
     
 } catch (Error $ex) {
+    print_r($ex->getMessage());
     include(PATH_VIEW . 'errors\error.html');
 } catch (AppException $ex){
+    print_r($ex->getMessage());
     include(PATH_VIEW . 'errors\error.html');
 }catch (Exception $ex){
+    print_r($ex->getMessage());
     include(PATH_VIEW . 'errors\error.html');
 }
 

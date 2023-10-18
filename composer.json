@@ -3,7 +3,7 @@
     "description": "Description of project MonPetitMVC.",
     "authors": [
         {
-            "name": "baptiste.erades",
+            "name": "yousra EL YEBDRI",
             "email": "your@email.here"
         }
     ],
@@ -16,5 +16,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "=9.5"
+    },
+    "require": {
+        "twig/twig": "^3.7"
     }
 }

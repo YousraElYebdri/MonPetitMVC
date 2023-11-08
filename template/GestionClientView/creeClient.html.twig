@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="container">
+        <h2>Nouveau client</h2>
+        <form action="index.php?c=GestionClient&a=enregisteClient"method="post">
+            <div class="form-group">
+                <label for="titre">Ttiste</label>
+                <select class="form-control" id="titre" name="titreClie" required>
+                    <option>Choisir...</option>
+                    <option>Monsieur</option>
+                    <option>Madame</option>
+                    <option>Mademoiselle</option>
+                </select>    
+            </div>
+            <div class="from-group">
+                <label for=nom">Nom:</label>
+                <input type="text" class="form-control" id="nom" placeholder="Nom:" name="nomCli" value="EL YEBDRI" required>
+                <label for=prenom">Prenom:</label>
+                <input type="text" class="form-control" id="prenom" placeholder="Prenom:" name="prenomCli" value="Yousra" required>
+                <label for="adresse">Adresse:</label>
+                <input type="text" class="form-control" id="adresse" placeholder="Adresse:" name="adresseRueCli" value="Avenue W.Churchil" required>
+                <label for="adresse2">Complement d'adresse:</label>
+                <input type="text" class="form-control" id="adresse2" placeholder="Complement d'adresse (facultatif):" name="adresseRue2Cli" value="Les Lauriers" required>
+                <label for="cp">Code postal:</label>
+                <input type="text" class="form-control" id="cp" placeholder="Code postal:" name="cpCli" value="83000" required>
+                <label for="ville">Ville:</label>
+                <input type="text" class="form-control" id="ville" placeholder="Ville:" name="villeCli" value="Toulon" required>
+                <label for="tel">Tel:</label>
+                <input type="text" class="form-control" id="tel" placeholder="Nom:" name="telCli" value="040404040" required>
+            </div>
+            <button type="submit" class="btn btn-default">Créer</button>
+        </form>
+    </div>
+{% endblock %}
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

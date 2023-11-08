@@ -1,0 +1,19 @@
+{# empty Twig template #}
+<h3>recherche</h3>
+<div class="container">
+    <form action="?c=gestionClient&a=ChercheUn" method="post">
+        <div class="form-group">
+            <label for="Nuemro du client">Id du client</label>
+            <select classe="form-control" id="titre" name="id">
+                {% for id in lesIds %}
+                    {% if idClient and idClient == id['id'] %}
+                        <option selected> {{ id['id'] }}</option>
+                    {% else %}
+                        <option>{{ id['id'] }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <input type ="submit" value="Voir" class="btn btn-default"/>
+    </form>
+</div>

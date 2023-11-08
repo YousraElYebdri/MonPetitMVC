@@ -1,0 +1,25 @@
+{# templates/error.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Erreur de l'application</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div style="display: flex; justify-content: center">
+            <div style="text-align: center">
+                <p>Oups, une erreur est survenue.</p>
+                {% if is_dev_mode %}
+                    <h2>Information de débogage :</h2>
+                    <p><strong>Message :</strong> {{ error.message }}</p>
+                    <p><strong>Fichier :</strong> {{ error.file }}</p>
+                    <p><strong>Ligne :</strong> {{ error.line }}</p>
+                    <p><strong>Trace :</strong> <pre>{{ error.trace }}</pre></p>
+                {% else %}
+                    <p>Cette page n'existe pas ou une erreur s'est produite.</p>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>

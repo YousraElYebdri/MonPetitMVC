@@ -1,14 +1,18 @@
 <?php
 
 use App\Exceptions\AppException;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
-define('DS', DIRECTORY_SEPARATOR); // Define permet de definir des Constantes
+define('DS', DIRECTORY_SEPARATOR);
 define('RACINE', new DirectoryIterator(dirname(__FILE__)) . DS . ".." . DS);
-
 
 include_once(RACINE . DS . 'config/conf.php');
 include_once(PATH_VENDOR . "autoload.php");
 include_once(RACINE . DS . "includes/params.php");
+
+$loader = new FilesystemLoader(PATH_VIEW);
+$twig = new Environment($loader);
 
 try {
     if((!array_key_exists('c', $_GET)) || (!array_key_exists('a', $_GET))){ // Permet de vérifier si l'url est correctement saisie
@@ -28,16 +32,26 @@ try {
     }
     
 } catch (Error $ex) {
-    print_r($ex->getMessage());
-    include(PATH_VIEW . 'errors\error.html');
-} catch (AppException $ex){
+    if (MODE_DEV) {
+        echo $twig->render('errors/error.html.twig', [
+            'is_dev_mode' => MODE_DEV,
+            'error' => [
+                'message' => $ex->getMessage(),
+                'file'    => $ex->getFile(),
+                'line'    => $ex->getLine(),
+                'trace'   => $ex->getTraceAsString(),
+            ],
+        ]);
+    } else {
+        include(PATH_VIEW . 'errors\error.html');
+    }
+} catch (AppException $ex) {
     print_r($ex->getMessage());
     include(PATH_VIEW . 'errors\error.html');
 }catch (Exception $ex){
     print_r($ex->getMessage());
     include(PATH_VIEW . 'errors\error.html');
 }
-
 /**Donnez une raison pour effectuer ce test : 
     Permet de vérifier que l'url soit complète.
 

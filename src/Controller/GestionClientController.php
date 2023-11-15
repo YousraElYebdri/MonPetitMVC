@@ -46,7 +46,17 @@ class GestionClientController {
             throw new AppException("Aucun client à afficher");
         }
     }
-
+    
+    public function chercheUnAjax(array $params): void {
+        $repository = Repository::getRepository("App\Entity\Client");
+        $ids = $repository->findIds();
+        $params['lesIds'] = $ids;
+        $r = new ReflectionClass($this);
+        $vue = str_replace('Controller', 'View', $r->getShortName()) . "/unClientAjax.html.twig";
+        MyTwig::afficheVue($vue, $params);
+        
+    }
+    
     public function creerClient(array $params): void {
 
       if (empty($params)) {    

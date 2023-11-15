@@ -7,4 +7,7 @@ use Tools\Repository;
 
 class ClientRepository extends Repository {
     
+        public function statistiquesTousClients() : array {
+        
+    }
 }

@@ -6,10 +6,14 @@
 
     {% for unClient in clients %}
         
-        <p> {{ unClient.getId() }} {{ unClient.getTitreCli() }}
-        {{ unClient.getNomCli() }} {{ unClient.getPrenomCli() }} 
-        {{ unClient.getAdresseRue1Cli() }} {{ unClient.getAdresseRue2Cli() }} 
-        {{ unClient.getCpCli() }} {{ unClient.getTelCli() }}</p>
+        <p> {{ unClient.getId() }}{{ "          " }} 
+            {{ unClient.getTitreCli() }}{{ "          " }}
+        {{ unClient.getNomCli() }}{{ "          " }} 
+        {{ unClient.getPrenomCli() }} {{ "          " }}
+        {{ unClient.getAdresseRue1Cli() }}{{ "          " }}
+        {{ unClient.getAdresseRue2Cli() }} 
+        {{ unClient.getCpCli() }}{{ "          " }}
+        {{ unClient.getTelCli() }}</p>
         
     {% endfor %}
 {% endblock %}

@@ -93,8 +93,8 @@ abstract class Repository {
       return  count($this->findAll());
     }
     
-    public function statistiquesToyusClients() : array {
-        
+    public function executeSQL (string $sql) : ?array {
+        $resultat = $this->connexion->query($sql);
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
-
 }

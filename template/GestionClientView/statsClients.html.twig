@@ -1,1 +1,21 @@
-{# empty Twig template #}
+{% extends "layout.html.twig" %}
+
+{% block contenu %}
+    
+    {% for unClient in clients %}
+        
+        <p> {{ unClient.getId() }}{{ "          " }} 
+            {{ unClient.getTitreCli() }}{{ "          " }}
+            {{ unClient.getNomCli() }}{{ "          " }} 
+            {{ unClient.getPrenomCli() }} {{ "          " }}
+            {{ unClient.getAdresseRue1Cli() }}{{ "          " }}
+            {{ unClient.getAdresseRue2Cli() }} {{ "          " }}
+            {{ unClient.getCpCli() }}{{ "          " }}
+            {{ unClient.getTelCli() }}</p>
+        
+    {% endfor %}
+{% endblock %}
+{% block footer %}
+    {{ parent() }}
+    <div class="text-center"> Fin de l'affichage </div>
+{% endblock %}

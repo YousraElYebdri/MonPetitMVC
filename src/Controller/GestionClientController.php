@@ -67,6 +67,7 @@ class GestionClientController {
     }
     
     public function nbClients(array $params) : void {
+        
         $repository = Repository::getRepository("App\Entity\Client");
         $nbClients = $repository->countRows();
         echo "nombre de clients : " . $nbClients;
@@ -78,6 +79,19 @@ class GestionClientController {
 //        } catch (Exception $ex) {
 //
 //        }
+    }
+    
+    public function statsClients(array $params) : void {
+        $ClientRepository = Repository::getRepository("App\Entity\Client");
+        $statsClients = $ClientRepository->statistiquesTousClients();
+        if ($statsClients) {
+            $r = new ReflectionClass($this);
+            $vue = str_replace('Controller', 'View', $r->getShortName()) . "/statsClients.html.twig";
+            MyTwig::afficheVue($vue, array('statsclients' => $statsClients));
+        } else {
+            throw new AppException("Aucun client à afficher");
+        }
+        
     }
 
     public function enregisterClient(array $params) {

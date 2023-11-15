@@ -5,7 +5,7 @@
     </head>
     <body>
         {% block navbar %}{%include 'navbar.html.twig'%}{% endblock %}
-        {% block contenu %}{% endblock %}
+        <div class="container"> {% block contenu %}{% endblock %}</div>
     </body>
     <footer>
         {% block footer %} {%include 'footer.html.twig'%}{% endblock %}

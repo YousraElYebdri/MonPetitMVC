@@ -8,19 +8,22 @@ use App\Model\GestionClientModel;
 use ReflectionClass;
 use App\Exceptions\AppException;
 use Tools\MyTwig;
+use Tools\Repository;
+use App\Entity\Client;
+use App\Repository\ClientRepository;
 
 class GestionClientController {
 
     public function chercheUn(array $params) {
-        $modele = new GestionClientModel();
+        $repository = Repository::getRepository("Client");
         // on recupere tous les id des clients
-        $ids = $modele->findInds();
+        $ids = $repository->findIds();
         //on place les ids trouvés dans le tableau des parametres a envoyer a la vue
         $params['lesIds'] = $ids;
         //on test si l'id du client a cher chercher a ete passee dans l'url
         if (array_key_exists('id', $params)) {
             $id = filter_var(intval($params["id"]), FILTER_VALIDATE_INT);
-            $unClient = $modele->find($id);
+            $unClient = $repository->find($id);
             if ($unClient) { // Pour vérifier le fait que l'on récupère bien un client.
                 $params['unClient'] = $unClient;
             } else {
@@ -32,21 +35,49 @@ class GestionClientController {
         MyTwig::afficheVue($vue, $params);
     }
 
-    public function chercheTous(array $params) {
-        $modele = new GestionClientModel();
-        $clients = $modele->findAll();
+    public function chercheTous(): void {
+        $repository = Repository::getRepository("App\Entity\Client");
+        $clients = $repository->findAll();
         if ($clients) {
             $r = new ReflectionClass($this);
             $vue = str_replace('Controller', 'View', $r->getShortName()) . "/plusieursClients.html.twig";
-            MyTwig::afficheVue($vue, array('clients'=> $clients));
+            MyTwig::afficheVue($vue, array('clients' => $clients));
         } else {
             throw new AppException("Aucun client à afficher");
         }
     }
 
-    public function creerClient(array $params) {
-        $vue = "GestionClientView\\creeClient.html.twig";
-        MyTwig::afficheVue($vue, array());
+    public function creerClient(array $params): void {
+
+      if (empty($params)) {    
+            $vue = "GestionClientView\\creeClient.html.twig";
+            MyTwig::afficheVue($vue, array());
+        } else {
+            try {
+                //$params = $this->verificationSaisieClient($params);
+                // creation de l'obejt client a partir des données du formulaire
+                $client = new Client($params);
+                $repository = Repository::getRepository("App\Entity\Client");
+                $repository->insert($client);
+                $this->chercheTous();
+            } catch (Exception) {
+                throw new AppException("Erreur a l'enregistrement d'un nouveau client");
+            }
+        }
+    }
+    
+    public function nbClients(array $params) : void {
+        $repository = Repository::getRepository("App\Entity\Client");
+        $nbClients = $repository->countRows();
+        echo "nombre de clients : " . $nbClients;
+    }
+
+    private function verificationSaisie(array $params) : array {
+//        try{
+//          $client = 
+//        } catch (Exception $ex) {
+//
+//        }
     }
 
     public function enregisterClient(array $params) {

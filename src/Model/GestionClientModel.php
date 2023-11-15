@@ -15,7 +15,7 @@ class GestionClientModel {
     public function find(int $id): Client {
         try {
             $unObjetPdo = Connexion::getConnexion();
-            $sql = "SELECT * FROM CLIENT where id=:id";
+            $sql = "SELECT * FROM CLIENT where id= :id";
             $ligne = $unObjetPdo->prepare($sql);
             $ligne->bindValue(':id', $id, PDO::PARAM_INT);
             $ligne->execute();
@@ -25,7 +25,7 @@ class GestionClientModel {
         }
     }
     
-    public function findInds(){
+    public function findIds(){
         try {
             $unObjetPdo = Connexion::getConnexion();
             $sql = "SELECT id FROM CLIENT";
@@ -37,7 +37,7 @@ class GestionClientModel {
                 return $t;
             }else {
                 throw new AppException('Aucun client trouvé');
-            }
+            } 
         } catch (PDOException) {
             throw new AppException("Erreur technique inattendue");
         }

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\GestionClientModel;
 use ReflectionClass;
 use App\Exceptions\AppException;
 use Tools\MyTwig;
 use Tools\Repository;
 use App\Entity\Client;
-use App\Repository\ClientRepository;
 
 class GestionClientController {
 
@@ -83,13 +81,13 @@ class GestionClientController {
         echo "nombre de clients : " . $nbClients;
     }
 
-    private function verificationSaisie(array $params) : array {
+//    private function verificationSaisie(array $params) : array {
 //        try{
 //          $client = 
 //        } catch (Exception $ex) {
 //
 //        }
-    }
+//    }
     
     public function statsClients(array $params) : void {
         $ClientRepository = Repository::getRepository("App\Entity\Client");
